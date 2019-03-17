@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net451;netstandard2.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>TriggersTools.SharpUtils</PackageId>
+    <Authors>Robert Jordan</Authors>
+    <Company>Trigger's Tools &amp; Games</Company>
+    <Product>TriggersTools.SharpUtils</Product>
+    <Copyright>Copyright © Robert Jordan {YEAR}</Copyright>
+    <Description>A personal library for often-used utility functions and classes.</Description>
+    <PackageProjectUrl>https://github.com/trigger-death/TriggersTools.SharpUtils</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/trigger-death/TriggersTools.SharpUtils/blob/master/License.md</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/trigger-death/TriggersTools.SharpUtils</RepositoryUrl>
+    <PackageTags>utility, helper</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <InformationalVersion>1.0.0.0</InformationalVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="TriggersTools.Build.CopyrightYear" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
