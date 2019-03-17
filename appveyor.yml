@@ -2,7 +2,7 @@
 image: Visual Studio 2017
 
 environment:
-  packageVersion: 1.0.0
+  packageVersion: 0.0.1
 #  buildVersion: '{packageVersion}.{build}'
 #  nugetVersion: '{packageVersion}-beta-{build}'
 
@@ -15,7 +15,7 @@ init:
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  version: '$(buildVersion)'
+  version: '$(nugetVersion)'
   package_version: '$(nugetVersion)'
   assembly_version: '$(buildVersion)'
   file_version: '$(buildVersion)'
@@ -23,8 +23,8 @@ dotnet_csproj:
 
 before_build:
 - nuget restore
-build:
-  publish_nuget: true
+#build:
+#  publish_nuget: true
 
 configuration: Release
 #platform: Any CPU
