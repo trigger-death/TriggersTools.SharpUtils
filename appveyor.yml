@@ -1,17 +1,14 @@
-
-image: Visual Studio 2017
-
-version: '0.0.1.{build}'
+version: '1.0.0.{build}'
 environment:
-  baseVersion: 0.0.2
-#  buildVersion: '{packageVersion}.{build}'
-#  nugetVersion: '{packageVersion}-beta-{build}'
+  baseVersion: 1.0.0
 
 init:
 - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
 - ps: $env:packageVersion = "$env:baseVersion-beta-$env:appveyor_build_number"
 - ps: Update-AppveyorBuild -Version $env:buildVersion
-
+  
+image: Visual Studio 2017
+configuration: Release
 
 dotnet_csproj:
   patch: true
@@ -24,11 +21,6 @@ dotnet_csproj:
 
 before_build:
 - nuget restore
-#build:
-#  publish_nuget: true
-
-configuration: Release
-#platform: Any CPU
 
 artifacts:
 - path: '**\*.nupkg'
