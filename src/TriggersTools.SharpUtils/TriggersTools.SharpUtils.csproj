@@ -35,9 +35,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <WarningLevel>2</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+    <NoWarn>1701;1702;1570;1572;1574;1734;NU5125</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
