@@ -19,7 +19,7 @@ dotnet_csproj:
 #  package_version: '$(nugetVersion)'
   assembly_version: '$(buildVersion)'
   file_version: '$(buildVersion)'
-  informational_version: '$(nugetVersion)'
+  informational_version: '0.0.3-beta'
 
 before_build:
 - nuget restore
