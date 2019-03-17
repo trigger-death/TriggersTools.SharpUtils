@@ -15,11 +15,11 @@ init:
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-#  version: '$(nugetVersion)'
-#  package_version: '$(nugetVersion)'
-  assembly_version: '$(buildVersion)'
-  file_version: '$(buildVersion)'
-  informational_version: '0.0.3-beta'
+  version: '0.0.3-beta'
+  package_version: '0.0.3-beta'
+#  assembly_version: '$(buildVersion)'
+#  file_version: '$(buildVersion)'
+#  informational_version: '0.0.3-beta'
 
 before_build:
 - nuget restore
