@@ -2,7 +2,7 @@
 image: Visual Studio 2017
 
 environment:
-  packageVersion: 0.0.1
+  packageVersion: 0.0.2
 #  buildVersion: '{packageVersion}.{build}'
 #  nugetVersion: '{packageVersion}-beta-{build}'
 
@@ -15,8 +15,8 @@ init:
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  version: '$(nugetVersion)'
-  package_version: '$(nugetVersion)'
+#  version: '$(nugetVersion)'
+#  package_version: '$(nugetVersion)'
   assembly_version: '$(buildVersion)'
   file_version: '$(buildVersion)'
   informational_version: '$(nugetVersion)'
