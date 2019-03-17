@@ -6,11 +6,12 @@ environment:
 #  buildVersion: '{packageVersion}.{build}'
 #  nugetVersion: '{packageVersion}-beta-{build}'
 
-version: 1.0.0.{build}
 init:
 - ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
 - ps: $env:nugetVersion = "$env:packageVersion-beta-$env:appveyor_build_number"
-- ps: Update-AppveyorBuild -Version $env:buildVersion
+#- ps: Update-AppveyorBuild -Version $env:buildVersion
+
+version: '$(buildVersion)'
 
 dotnet_csproj:
   patch: true
