@@ -27,7 +27,7 @@ build:
   publish_nuget: true
 
 configuration: Release
-platform: Any CPU
+#platform: Any CPU
 
 artifacts:
 - path: '**\*.nupkg'
