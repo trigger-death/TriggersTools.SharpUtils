@@ -8,6 +8,9 @@ dotnet_csproj:
   assembly_version: '{version}'
   file_version: '{version}'
   informational_version: '{version}'
+before_build:
+- cmd: >-
+    nuget restore ./TriggersTools.SharpUtils.sln
 #build:
 #  project: TriggersTools.SharpUtils.sln      # path to Visual Studio solution or project
 #  publish_nuget: true                        # package projects with .nuspec files and push to artifacts
