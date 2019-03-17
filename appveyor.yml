@@ -2,16 +2,16 @@
 image: Visual Studio 2017
 
 environment:
-  packageVersion: 0.0.2
+  packageVersion: 0.0.2-beta
 #  buildVersion: '{packageVersion}.{build}'
 #  nugetVersion: '{packageVersion}-beta-{build}'
 
 init:
-- ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
-- ps: $env:nugetVersion = "$env:packageVersion-beta-$env:appveyor_build_number"
+#- ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
+#- ps: $env:nugetVersion = "$env:packageVersion-beta-$env:appveyor_build_number"
 #- ps: Update-AppveyorBuild -Version $env:buildVersion
 
-version: '$(buildVersion)'
+version: '0.0.1.{build}'
 
 dotnet_csproj:
   patch: true
