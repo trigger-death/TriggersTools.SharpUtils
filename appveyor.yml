@@ -1,18 +1,21 @@
+
 image: Visual Studio 2017
 
-version: 1.0.0.{build}
 environment:
   packageVersion: 1.0.0
+  buildVersion: '{packageVersion}.{build}'
+  nugetVersion: '{packageVersion}-beta-{build}'
 
-init:
-- ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
-- ps: $env:nugetVersion = "$env:packageVersion-beta-$env:appveyor_build_number"
-- ps: Update-AppveyorBuild -Version $env:buildVersion
+version: 1.0.0.{build}
+#init:
+#- ps: $env:buildVersion = "$env:packageVersion.$env:appveyor_build_number"
+#- ps: $env:nugetVersion = "$env:packageVersion-beta-$env:appveyor_build_number"
+#- ps: Update-AppveyorBuild -Version $env:buildVersion
 
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  version: '$(nugetVersion)'
+  version: '$(buildVersion)'
   package_version: '$(nugetVersion)'
   assembly_version: '$(buildVersion)'
   file_version: '$(buildVersion)'
@@ -23,6 +26,7 @@ before_build:
 #  project: TriggersTools.SharpUtils.sln      # path to Visual Studio solution or project
 #  publish_nuget: true                        # package projects with .nuspec files and push to artifacts
 configuration: Release
+platform: Any CPU
 artifacts:
 - path: '**\*.nupkg'
 deploy:
