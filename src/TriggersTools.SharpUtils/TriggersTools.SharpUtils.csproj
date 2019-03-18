@@ -12,12 +12,12 @@
     <Description>A personal library for often-used utility functions and classes.</Description>
     <PackageProjectUrl>https://github.com/trigger-death/TriggersTools.SharpUtils</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/trigger-death/TriggersTools.SharpUtils/blob/master/License.md</PackageLicenseUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/trigger-death/TriggersTools.SharpUtils/master/NuGetIcon.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/trigger-death/TriggersTools.SharpUtils</RepositoryUrl>
     <PackageTags>utility, helper</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <PackageIconUrl>https://raw.githubusercontent.com/trigger-death/TriggersTools.SharpUtils/master/NuGetIcon.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">

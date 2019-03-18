@@ -4,7 +4,7 @@ using System.IO;
 
 namespace TriggersTools.SharpUtils.IO {
 	/// <summary>
-	///  Extension methods for the <see cref="StreamReader"/> class.
+	///  Extension methods for the <see cref="TextReader"/> class.
 	/// </summary>
 	public static class TextReaderExtensions {
 		#region ReadLines

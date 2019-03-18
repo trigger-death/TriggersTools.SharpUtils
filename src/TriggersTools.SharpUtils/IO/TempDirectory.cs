@@ -57,7 +57,14 @@ namespace TriggersTools.SharpUtils.IO {
 		/// </summary>
 		/// <returns>The path of the directory.</returns>
 		public override string ToString() => Path;
-		
+		/// <summary>
+		///  Checks if the object is of type <see cref="string"/> or <see cref="TempDirectory"/> and compares the
+		///  <see cref="Path"/>.
+		/// </summary>
+		/// <param name="obj">The object to check for equality with.</param>
+		/// <returns>
+		///  True if the object is a <see cref="string"/> or <see cref="TempDirectory"/> and the <see cref="Path"/> is equal.
+		/// </returns>
 		public override bool Equals(object obj) {
 			if (obj is TempDirectory tempDir)
 				return Equals(tempDir.Path);
@@ -65,7 +72,17 @@ namespace TriggersTools.SharpUtils.IO {
 				return Equals(path);
 			return false;
 		}
+		/// <summary>
+		///  Checks if the <see cref="string"/> is equal to <see cref="Path"/>.
+		/// </summary>
+		/// <param name="other">The <see cref="string"/> to check for equality with.</param>
+		/// <returns>True if the <see cref="string"/> and the <see cref="Path"/> is equal.</returns>
 		public bool Equals(string other) => Path == other;
+		/// <summary>
+		///  Checks if the <see cref="TempDirectory"/>'s <see cref="Path"/>s are equal.
+		/// </summary>
+		/// <param name="other">The <see cref="TempDirectory"/> to check for equality with.</param>
+		/// <returns>True if the <see cref="TempDirectory"/>'s <see cref="Path"/>s are equal.</returns>
 		public bool Equals(TempDirectory other) => Path == other?.Path;
 
 		public int CompareTo(object obj) {
@@ -78,6 +95,10 @@ namespace TriggersTools.SharpUtils.IO {
 		public int CompareTo(string other) => Path.CompareTo(other);
 		public int CompareTo(TempDirectory other) => Path.CompareTo(other?.Path);
 
+		/// <summary>
+		///  Gets the hash code for the <see cref="Path"/>.
+		/// </summary>
+		/// <returns>The hash code of <see cref="Path"/>.</returns>
 		public override int GetHashCode() => Path.GetHashCode();
 
 		#endregion
