@@ -28,7 +28,7 @@ for:
 # Other
 -
   skip_commits:
-    description: /@appveyor-(?:build|release)/
+    message: /^@appveyor-(?:build|release)/
   init:
   - cmd: '@ECHO ==== TEST BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
@@ -38,9 +38,9 @@ for:
 # Testing
 -
   only_commits:
-    description: /@appveyor-build/
+    message: /^@appveyor-test/
   init:
-  - cmd: '@ECHO ==== DESCRIPTION TEST BUILD ====
+  - cmd: '@ECHO ==== DESCRIPTION TEST BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
   - ps: $env:packageVersion = "$env:baseVersion-build-$env:appveyor_build_number"
   - ps: Update-AppveyorBuild -Version $env:buildVersion
@@ -48,9 +48,9 @@ for:
 # Pre-release
 -
   only_commits:
-    message: /@appveyor-build/
+    message: /^@appveyor-build/
   init:
-  - cmd: '@ECHO ==== PRE-RELEASE BUILD ====
+  - cmd: '@ECHO ==== PRE-RELEASE BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
   - ps: $env:packageVersion = "$env:baseVersion-build-$env:appveyor_build_number"
   - ps: Update-AppveyorBuild -Version $env:buildVersion
@@ -63,7 +63,7 @@ for:
 # Release
 -
   only_commits:
-    message: /@appveyor-release/
+    message: /^@appveyor-release/
   init:
   - cmd: '@ECHO ==== RELEASE BUILD ====
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
