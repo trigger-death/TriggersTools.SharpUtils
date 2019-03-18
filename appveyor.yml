@@ -1,6 +1,6 @@
 version: '0.0.1.{build}'
 environment:
-  baseVersion: 0.0.3
+  baseVersion: '0.0.3'
   
 image: Visual Studio 2017
 configuration: Release
@@ -14,9 +14,9 @@ dotnet_csproj:
   file_version: '$(buildVersion)'
   informational_version: '$(packageVersion)'
 
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 
 before_build:
 - nuget restore
@@ -27,8 +27,8 @@ artifacts:
 for:
 # Other
 -
-  only_commits:
-    message: /@appveyor-(?!(?:build|release))/
+  skip_commits:
+    message: /@appveyor-(?:build|release)/
   init:
   - cmd: ECHO ==== TEST BUILD ====
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
