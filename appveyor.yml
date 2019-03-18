@@ -65,7 +65,7 @@ for:
   only_commits:
     message: /^@appveyor-release/
   init:
-  - cmd: '@ECHO ==== RELEASE BUILD ====
+  - cmd: '@ECHO ==== RELEASE BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
   - ps: $env:packageVersion = "$env:baseVersion"
   - ps: Update-AppveyorBuild -Version $env:buildVersion
