@@ -38,7 +38,7 @@ for:
 # Testing
 -
   only_commits:
-    message: /@appveyor-test/
+    extended_message: /appveyor-test/
   init:
   - cmd: '@ECHO ==== DESCRIPTION TEST BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
