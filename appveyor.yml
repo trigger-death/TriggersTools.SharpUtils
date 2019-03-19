@@ -24,19 +24,24 @@ before_build:
 
 init:
 - ps: >-
+    # Set default values
     $env:runNugetDeploy  = "false";
     $env:runNugetRelease = "false";
     
     $env:buildVersion    = "$env:baseVersion.$env:appveyor_build_number";
     $env:packageVersion  = "$env:baseVersion-build-$env:appveyor_build_number";
 
-    if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("[build]")) {
-      echo ==== PRE-RELEASE BUILD ====;
+    # Make sure this is defined
+    if (!$env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED) { $env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED = " " }
+
+    # Choose what type of build
+    if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@build")) {
+      echo "==== PRE-RELEASE BUILD ====";
 
       $env:runNugetDeploy  = "true";
     }
-    elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("[release]")) {
-      echo ==== RELEASE BUILD ====;
+    elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@release")) {
+      echo "==== RELEASE BUILD ====";
 
       $env:runNugetDeploy  = "true";
       $env:runNugetRelease = "true";
@@ -45,7 +50,7 @@ init:
       $env:packageVersion  = "$env:baseVersion";
     }
     else {
-      echo ==== TEST BUILD ====;
+      echo "==== TEST BUILD ====";
     }
 
 artifacts:
@@ -57,4 +62,4 @@ deploy:
     secure: QVGLofIy2zySjb1ZW8e730tg6PxVB+++YvaJh/Dc54LA6h6u+2Cf4davQ9PPGn7E
   artifact: /.*\.nupkg/
   on:
-    runNugetPack: true
+    runNugetDeploy: true
