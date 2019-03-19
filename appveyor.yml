@@ -16,7 +16,7 @@ dotnet_csproj:
   informational_version: '$(packageVersion)'
 
 build:
-  verbosity: normal #minimal
+  verbosity: minimal
 
 branches:
   only:
