@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TriggersTools.SharpUtils.Exceptions;
 
-namespace TriggersTools.IO {
+namespace TriggersTools.SharpUtils.IO {
 	/// <summary>
 	///  A stream that is fixed to the specified offset and length within another stream.
 	/// </summary>
