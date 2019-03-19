@@ -24,21 +24,28 @@ before_build:
 
 init:
 - ps: >-
-    $env:runNugetDeploy  = "false"
-    $env:runNugetRelease = "false"
+    $env:runNugetDeploy  = "false";
+    $env:runNugetRelease = "false";
     
-    $env:buildVersion    = "$env:baseVersion.$env:appveyor_build_number"
-    $env:packageVersion  = "$env:baseVersion-build-$env:appveyor_build_number"
+    $env:buildVersion    = "$env:baseVersion.$env:appveyor_build_number";
+    $env:packageVersion  = "$env:baseVersion-build-$env:appveyor_build_number";
 
     if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("[build]")) {
-      $env:runNugetDeploy  = "true"
+      echo ==== PRE-RELEASE BUILD ====;
+
+      $env:runNugetDeploy  = "true";
     }
     elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("[release]")) {
-      $env:runNugetDeploy  = "true"
-      $env:runNugetRelease = "true"
+      echo ==== RELEASE BUILD ====;
 
-      $env:buildVersion    = "$env:baseVersion.0"
-      $env:packageVersion  = "$env:baseVersion"
+      $env:runNugetDeploy  = "true";
+      $env:runNugetRelease = "true";
+
+      $env:buildVersion    = "$env:baseVersion.0";
+      $env:packageVersion  = "$env:baseVersion";
+    }
+    else {
+      echo ==== TEST BUILD ====;
     }
 
 artifacts:
