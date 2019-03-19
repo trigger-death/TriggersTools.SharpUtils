@@ -24,23 +24,19 @@ before_build:
 
 init:
 - ps: >-
-    # Set default values
     $env:runNugetDeploy  = "false";
     $env:runNugetRelease = "false";
     
     $env:buildVersion    = "$env:baseVersion.$env:appveyor_build_number";
     $env:packageVersion  = "$env:baseVersion-build-$env:appveyor_build_number";
 
-    # Make sure this is defined
     if (!$env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED) { $env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED = " " }
 
-    # Choose what type of build
     if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@build")) {
       echo "==== PRE-RELEASE BUILD ====";
 
       $env:runNugetDeploy  = "true";
-    }
-    elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@release")) {
+    } elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@release")) {
       echo "==== RELEASE BUILD ====";
 
       $env:runNugetDeploy  = "true";
@@ -48,8 +44,7 @@ init:
 
       $env:buildVersion    = "$env:baseVersion.0";
       $env:packageVersion  = "$env:baseVersion";
-    }
-    else {
+    } else {
       echo "==== TEST BUILD ====";
     }
 
