@@ -15,6 +15,9 @@ dotnet_csproj:
   file_version: '$(buildVersion)'
   informational_version: '$(packageVersion)'
 
+build:
+  verbosity: minimal
+
 branches:
   only:
     - master
@@ -25,28 +28,29 @@ before_build:
 init:
 - ps: >-
     $env:runNugetDeploy  = "false";
-    $env:runNugetRelease = "false";
+    $env:runNugetRelease = "false"; 
     
-    $env:buildVersion    = "$env:baseVersion.$env:appveyor_build_number";
-    $env:packageVersion  = "$env:baseVersion-build-$env:appveyor_build_number";
-
     if (!$env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED) { $env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED = " " }
-
-    if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@build")) {
-      echo "==== PRE-RELEASE BUILD ====";
-
-      $env:runNugetDeploy  = "true";
-    } elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@release")) {
+    if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@release")) {
       echo "==== RELEASE BUILD ====";
 
       $env:runNugetDeploy  = "true";
       $env:runNugetRelease = "true";
-
       $env:buildVersion    = "$env:baseVersion.0";
       $env:packageVersion  = "$env:baseVersion";
+    } elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@build")) {
+      echo "==== PRE-RELEASE BUILD ====";
+
+      $env:runNugetDeploy  = "true";
+      $env:buildVersion    = "$env:baseVersion.$env:appveyor_build_number";
+      $env:packageVersion  = "$env:baseVersion-build-$env:appveyor_build_number";
     } else {
       echo "==== TEST BUILD ====";
+
+      $env:buildVersion    = "$env:baseVersion.$env:appveyor_build_number";
+      $env:packageVersion  = "$env:baseVersion-test-$env:appveyor_build_number";
     }
+    Update-AppveyorBuild -Version $env:buildVersion;
 
 artifacts:
 - path: '**\*.nupkg'
