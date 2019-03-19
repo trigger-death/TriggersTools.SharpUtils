@@ -1,9 +1,10 @@
 version: '0.0.1.{build}'
 environment:
-  baseVersion: '0.0.3'
+  baseVersion: '1.0.1'
   
 image: Visual Studio 2017
 configuration: Release
+platform: Any CPU
 
 dotnet_csproj:
   patch: true
@@ -14,9 +15,9 @@ dotnet_csproj:
   file_version: '$(buildVersion)'
   informational_version: '$(packageVersion)'
 
-#branches:
-#  only:
-#    - master
+branches:
+  only:
+    - master
 
 before_build:
 - nuget restore
@@ -25,22 +26,12 @@ artifacts:
 - path: '**\*.nupkg'
 
 for:
-# Other
-#-
-#  skip_commits:
-#    message: /^@appveyor-(?:build|release|test)/
-#  init:
-#  - cmd: '@ECHO ==== TEST BUILD ===='
-#  - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
-#  - ps: $env:packageVersion = "$env:baseVersion-build-$env:appveyor_build_number"
-#  - ps: Update-AppveyorBuild -Version $env:buildVersion
-
 # Testing
 -
-  only_commits:
-    extended_message: /appveyor-test/
+  skip_commits:
+    message: /\[build\]|\[release\]/
   init:
-  - cmd: '@ECHO ==== DESCRIPTION TEST BUILD ===='
+  - cmd: '@ECHO ==== TEST BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
   - ps: $env:packageVersion = "$env:baseVersion-build-$env:appveyor_build_number"
   - ps: Update-AppveyorBuild -Version $env:buildVersion
@@ -48,7 +39,7 @@ for:
 # Pre-release
 -
   only_commits:
-    message: /^@appveyor-build/
+    message: /\[build\]/
   init:
   - cmd: '@ECHO ==== PRE-RELEASE BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
@@ -63,7 +54,7 @@ for:
 # Release
 -
   only_commits:
-    message: /^@appveyor-release/
+    message: /\[release\]/
   init:
   - cmd: '@ECHO ==== RELEASE BUILD ===='
   - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
