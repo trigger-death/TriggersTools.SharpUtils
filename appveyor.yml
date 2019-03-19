@@ -1,6 +1,6 @@
 version: '0.0.1.{build}'
 environment:
-  baseVersion: '1.0.1'
+  baseVersion: '0.0.5'
   
 image: Visual Studio 2017
 configuration: Release
@@ -27,14 +27,14 @@ artifacts:
 
 for:
 # Testing
--
-  skip_commits:
-    message: /\[build\]|\[release\]/
-  init:
-  - cmd: echo ==== TEST BUILD ====
-  - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
-  - ps: $env:packageVersion = "$env:baseVersion-build-$env:appveyor_build_number"
-  - ps: Update-AppveyorBuild -Version $env:buildVersion
+#-
+#  skip_commits:
+#    message: /\[build\]|\[release\]/
+#  init:
+#  - cmd: echo ==== TEST BUILD ====
+#  - ps: $env:buildVersion = "$env:baseVersion.$env:appveyor_build_number"
+#  - ps: $env:packageVersion = "$env:baseVersion-build-$env:appveyor_build_number"
+#  - ps: Update-AppveyorBuild -Version $env:buildVersion
 
 # Pre-release
 -
