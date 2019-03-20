@@ -22,23 +22,20 @@ branches:
   only:
     - master
 
-before_build:
-- nuget restore
-
 init:
 - ps: >-
     $env:runNugetDeploy  = "false";
     $env:runNugetRelease = "false"; 
     
     if (!$env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED) { $env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED = " " }
-    if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@release")) {
+    if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("[release]")) {
       echo "==== RELEASE BUILD ====";
 
       $env:runNugetDeploy  = "true";
       $env:runNugetRelease = "true";
       $env:buildVersion    = "$env:baseVersion.0";
       $env:packageVersion  = "$env:baseVersion";
-    } elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("@build")) {
+    } elseif ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("[build]")) {
       echo "==== PRE-RELEASE BUILD ====";
 
       $env:runNugetDeploy  = "true";
@@ -51,6 +48,13 @@ init:
       $env:packageVersion  = "$env:baseVersion-test-$env:appveyor_build_number";
     }
     Update-AppveyorBuild -Version $env:buildVersion;
+
+before_build:
+- ps: >-
+    $csprojToReplace = (Get-Content -Path src/TriggersTools.SharpUtils/TriggersTools.SharpUtils.csproj -Raw);
+    $csprojToReplace = ($csprojToReplace -Replace "{YEAR}",(Get-Date).ToUniversalTime().ToString("yyyy"));
+    Set-Content -Path src/TriggersTools.SharpUtils/TriggersTools.SharpUtils.csproj -Encoding "UTF8" "$csprojToReplace";
+- nuget restore
 
 artifacts:
 - path: '**\*.nupkg'
