@@ -50,10 +50,6 @@ init:
     Update-AppveyorBuild -Version $env:buildVersion;
 
 before_build:
-- ps: >-
-    $csprojToReplace = (Get-Content -Path src/TriggersTools.SharpUtils/TriggersTools.SharpUtils.csproj -Raw);
-    $csprojToReplace = ($csprojToReplace -Replace "{YEAR}",(Get-Date).ToUniversalTime().ToString("yyyy"));
-    Set-Content -Path src/TriggersTools.SharpUtils/TriggersTools.SharpUtils.csproj -Encoding "UTF8" "$csprojToReplace";
 - nuget restore
 
 artifacts:

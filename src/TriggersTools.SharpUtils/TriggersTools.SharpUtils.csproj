@@ -8,7 +8,7 @@
     <Authors>Robert Jordan</Authors>
     <Company>Trigger's Tools &amp; Games</Company>
     <Product>TriggersTools.SharpUtils</Product>
-    <Copyright>Copyright © Robert Jordan {YEAR}</Copyright>
+    <Copyright>Copyright © Robert Jordan $([System.DateTime]::Now.Year)</Copyright>
     <Description>A personal library for often-used utility functions and classes.</Description>
     <PackageProjectUrl>https://github.com/trigger-death/TriggersTools.SharpUtils</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/trigger-death/TriggersTools.SharpUtils/blob/master/License.md</PackageLicenseUrl>
@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
-    <PackageReference Include="TriggersTools.Build.CopyrightYear" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
