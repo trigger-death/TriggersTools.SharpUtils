@@ -35,7 +35,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <Compile Remove="Collections\ImmutableDictionaryLW.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Collections\ImmutableDictionaryLW.cs" />
   </ItemGroup>
 
 </Project>

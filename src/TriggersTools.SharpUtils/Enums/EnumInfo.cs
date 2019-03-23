@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
+using TriggersTools.SharpUtils.Collections;
 
 namespace TriggersTools.SharpUtils.Enums {
 	/// <summary>
@@ -91,7 +91,7 @@ namespace TriggersTools.SharpUtils.Enums {
 				if (!valueLookup.ContainsKey(info.Value))
 					valueLookup.Add(info.Value, info);
 			}
-			Fields = nameLookup.Values.ToImmutableArray();
+			Fields = nameLookup.Values.ToImmutableArrayLW();
 			HasDefaultField = valueLookup.ContainsKey(DefaultValue);
 		}
 

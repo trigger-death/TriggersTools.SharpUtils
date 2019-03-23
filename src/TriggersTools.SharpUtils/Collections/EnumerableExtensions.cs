@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,28 @@ namespace TriggersTools.SharpUtils.Collections {
 				index++;
 			}
 			return -1;
+		}
+
+		/// <summary>
+		///  Construct a immutable array from an enumerable source. This uses a lightweight immutable array
+		///  implementation that doesn't require referencing System.Collections.Immutable.
+		/// </summary>
+		/// <typeparam name="T">The element type of the source.</typeparam>
+		/// <param name="source">The source collection to construct the immutable array from.</param>
+		/// <returns>An immutable array with the source's elements.</returns>
+		/// 
+		/// <exception cref="ArgumentNullException">
+		///  <paramref name="source"/> is null.
+		/// </exception>
+		public static ImmutableArrayLW<T> ToImmutableArrayLW<T>(this IEnumerable<T> source) {
+			return new ImmutableArrayLW<T>(source);
+		}
+		public static ReadOnlyCollection<T> AsReadOnly<T>(this IList<T> source) {
+			return new ReadOnlyCollection<T>(source);
+		}
+		public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> source)
+		{
+			return new ReadOnlyDictionary<TKey, TValue>(source);
 		}
 	}
 }
