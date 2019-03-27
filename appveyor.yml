@@ -2,7 +2,8 @@ version: '0.0.1.{build}'
 environment:
   baseVersion: '1.0.3'
   releaseBuild: ''
-  prereleaseLabel: 'build'
+  preLabel: 'build'
+  prePadding: 6
   
 image: Visual Studio 2017
 configuration: Release
@@ -36,8 +37,8 @@ init:
       $releasePackageVersion = "$env:baseVersion";
     }
     $preBuildVersion    = "$env:baseVersion.$env:appveyor_build_number";
-    $preBuildNumber     = "$env:appveyor_build_number".PadLeft(5, "0");
-    $prePackageVersion  = "$env:baseVersion-$env:prereleaseLabel-$preBuildNumber";
+    $preCounterPadded   = "$env:appveyor_build_number".PadLeft($env:prePadding, "0");
+    $prePackageVersion  = "$env:baseVersion-$env:preLabel-$preCounterPadded";
 
     if (!$env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED) { $env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED = " " }
     if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED.Contains("[release]")) {
@@ -54,6 +55,7 @@ init:
       $env:packageVersion  = "$prePackageVersion";
     } else {
       echo "==== TEST BUILD ====";
+
       echo "Prerelease Build Version = $preBuildVersion";
       echo "Prerelease Package Version = $prePackageVersion";
       echo "Release Build Version = $releaseBuildVersion";
