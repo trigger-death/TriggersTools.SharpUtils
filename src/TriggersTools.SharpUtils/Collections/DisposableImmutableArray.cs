@@ -7,34 +7,21 @@ using System.Threading.Tasks;
 
 namespace TriggersTools.SharpUtils.Collections {
 	/// <summary>
-	///  An array of disposable objects that can be cleaned up in one using statement.
+	///  An immutable array of disposable objects that can be cleaned up in one using statement.
 	/// </summary>
 	/// <typeparam name="T">The type of disposable object contained in the collection.</typeparam>
-	/// 
-	/// <remarks>
-	///  Replacing an item in the collection with the indexer will NOT dispose of the item.
-	/// </remarks>
-	public class DisposableArray<T> : ArrayCollection<T>, IDisposable where T : IDisposable {
+	public class DisposableImmutableArray<T> : ImmutableArrayLW<T>, IDisposable where T : IDisposable {
 		#region Constructors
 
 		/// <summary>
-		///  Constructs an array of disposable type <typeparamref name="T"/> and the specified length.
+		///  Constructs an immutable array of disposable type <typeparamref name="T"/>.
 		/// </summary>
-		/// <param name="length">The length of the array.</param>
-		/// 
-		/// <exception cref="ArgumentOutOfRangeException">
-		///  <paramref name="length"/> is less than zero.
-		/// </exception>
-		public DisposableArray(int length) : base(length) { }
-		/// <summary>
-		///  Constructs a wrapper for the array of disposable type <typeparamref name="T"/>.
-		/// </summary>
-		/// <param name="array">The list to wrap the array around.</param>
+		/// <param name="source">The collection to populate the immutable array with.</param>
 		/// 
 		/// <exception cref="ArgumentNullException">
-		///  <paramref name="array"/> is null.
+		///  <paramref name="source"/> is null.
 		/// </exception>
-		public DisposableArray(T[] array) : base(array) { }
+		public DisposableImmutableArray(IEnumerable<T> source) : base(source) { }
 
 		#endregion
 
@@ -52,7 +39,7 @@ namespace TriggersTools.SharpUtils.Collections {
 		/// <param name="disposing">True if disposing is going on.</param>
 		protected virtual void Dispose(bool disposing) {
 			if (disposing) {
-				foreach (T item in Items) {
+				foreach (T item in this) {
 					item?.Dispose();
 				}
 			}
